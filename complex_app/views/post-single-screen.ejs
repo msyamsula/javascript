@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('include/header') %>
+  <!-- header ends here -->
+  <body>
+    <div class="container py-md-5 container--narrow">
+      <div class="d-flex justify-content-between">
+        <h2><%= post.title %></h2>
+        <% if(visitorId !== "0"){ %>
+        <span class="pt-2">
+          <a
+            href="/edit/post/<%= post._id.toString() %>"
+            class="text-primary mr-2"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Edit"
+            ><i class="fas fa-edit"></i
+          ></a>
+          <form
+            class="delete-post-form d-inline"
+            action="/delete/post/<%= post._id.toString() %>"
+            method="POST"
+          >
+            <button
+              class="delete-post-button text-danger"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Delete"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </form>
+        </span>
+        <% } %>
+      </div>
+
+      <p class="text-muted small mb-4">
+        <a href="/profile/<%= post.username %>"
+          ><img class="avatar-tiny" src="<%= post.avatar %>"
+        /></a>
+        Posted by
+        <a href="/profile/<%= post.username %>"><%= post.username %></a> on <%=
+        post.created_at.getDate() %>/<%= post.created_at.getMonth()+1 %>/<%=
+        post.created_at.getFullYear() %>
+      </p>
+
+      <div class="body-content">
+        <p><%- filterUserHTML(post.body) %></p>
+      </div>
+    </div>
+  </body>
+  <!-- footer begins -->
+  <%- include('include/footer') %>
+</html>
